@@ -1,0 +1,31 @@
+#!/bin/bash
+echo "enter user"
+read user
+echo "WELCOME $user  TO THE INSTALLATION OF LEMP"
+echo "enter y to start installation"
+read y
+case $y in
+"y"|"Y")
+echo "installation started"
+echo "installing nginx:$(apt-get install nginx)"
+echo "installing mysql database program:$(apt-get install mysql-server)"
+echo "$(mysql_install_db)"
+echo "$(mysql_secure_installation)"
+echo "installing php programs:$(apt-get install php5-fpm php5-mysql)"
+echo "installation over"
+echo "enter domain"
+read dns
+echo "127.0.0.1 $dns" >> /etc/hosts
+echo "creating nginx configuration file for $dns:$(cp /etc/nginx/sites-available /etc/nginx/sites-available/$dn)s"
+echo "downloading wordpress:$(wget http://http://wordpress.org/latest.zip)"
+echo "copying wordpress:$(cp -r wordpress-4.3.1.zip /usr/share/nginx/html)"
+echo "archive getting decompressed:$(unzip /usr/share/nginx/html/wordpress-4.3.1.zip) "
+echo "create database $dns_db"|mysql
+echo "$(cp /usr/share/nginx/html/wp-config-sample.php /usr/share/nginx/html/wp-config.php)"
+echo "reloading nginx parameters:$(/etc/init.d/nginx restart)"
+echo "please open $dns in your browser"
+echo "thanks"
+;;
+*)
+echo "check your choice please"
+esac
